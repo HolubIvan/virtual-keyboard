@@ -1,0 +1,28 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "Virtual Keyboar Project",
+  "main": "script.js",
+  "dependencies": {
+    "eslint-plugin-import": "^2.20.1",
+    "sass": "^1.26.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "sass main.scss style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HolubIvan/virtual-keyboard.git"
+  },
+  "author": "Ivan Holub",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HolubIvan/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/HolubIvan/virtual-keyboard#readme"
+}
