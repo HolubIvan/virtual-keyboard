@@ -1,0 +1,88 @@
+.textarea {
+    width: 70rem;
+    height: 25rem;
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+.keyboard {
+    width: 70rem;
+    height: 22rem;
+    border: 4px solid rgb(2%, 5%, 20%, .8);
+    position: absolute;
+    top: 29rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background-color: rgb(54%, 61%, 95%, .1);
+    padding: 10px;
+
+    &__keys{
+        text-align: center;
+    }
+
+    &__key{
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+        border: none;
+        outline: none;
+        background-color: rgb(32%, 38%, 69%, 1);
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        vertical-align: top;
+        position: relative;
+        transition: all .2s;
+        margin: 5px;
+
+        &:hover{
+            background-color: rgb(44, 58, 125);
+        }
+
+        &-short{
+            width: 8rem;
+        }
+
+        &-middle{
+            width: 12rem;
+        }
+
+        &-wide{
+            width: 33rem;
+        }
+
+        &-activatable::after{
+            content: "";
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border-radius: 50%;
+        }
+
+        &-active::after{
+            content: "";
+            width: 6px;
+            height: 6px;
+            background-color: rgb(7%, 96%, 3%, 1);;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border-radius: 50%;
+        }
+
+        
+
+
+    }
+
+
+}
