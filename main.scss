@@ -5,6 +5,8 @@
     top: 3rem;
     left: 50%;
     transform: translateX(-50%);
+    border: 2px solid rgb(2%, 5%, 20%, .8);
+    font-size: 2.7rem;
   }
   
 .keyboard {
@@ -78,11 +80,9 @@
             right: 5px;
             border-radius: 50%;
         }
-
-        
-
-
     }
+}
 
-
+.active {
+    background-color: rgb(44, 58, 125);
 }
