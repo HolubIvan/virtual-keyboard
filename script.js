@@ -62,45 +62,122 @@ function listenKeyPress() {
 
 function listenClick() {
   document.addEventListener('click', (event) => {
-
     // listen for delete
     if (event.target.textContent === 'Backspace') {
       keyOnInput.pop();
       textarea.value = keyOnInput.join('');
-    } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Tab' || event.target.textContent === 'Shift' || event.target.textContent === 'Enter' || event.target.textContent === 'CapsLock') {
+    } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Tab' || event.target.textContent === 'Shift' || event.target.textContent === 'Enter') {
       return false;
+    } else if (event.target.textContent === 'CapsLock') {
+      capsLock();
     } else {
       keyOnInput.push(event.target.textContent);
       textarea.value += keyOnInput[keyOnInput.length - 1];
     }
   });
-
-  // document.querySelector('[data="CapsLock"]').addEventListener('click', (event) => {
-
-  // });
 }
 
 
-// add active class on key down
+// click event for CapsLock
+
+let isCapsLock = false;
+
+function capsLock() {
+  if (!isCapsLock) {
+    document.querySelectorAll('.keyboard__key').forEach((el) => {
+      if (el.textContent.length === 1) {
+        el.textContent = el.textContent.toUpperCase();
+      }
+    });
+    isCapsLock = true;
+  } else {
+    document.querySelectorAll('.keyboard__key').forEach((el) => {
+      if (el.textContent.length === 1) {
+        el.textContent = el.textContent.toLowerCase();
+      }
+    });
+    isCapsLock = false;
+  }
+}
+
+
+// add active class on key down and CapsLock
+
 function activeClassKeyDown() {
   document.addEventListener('keydown', (event) => {
+    // remove active class everywhere
     document.querySelectorAll('button').forEach((e) => {
       e.classList.remove('active');
     });
+    // add active class on keydown
     document.querySelector(`.keyboard__key[data="${event.code}"]`).classList.add('active');
+
+    // remove key from keyboard on keydown
+    if (event.code === 'Backspace') {
+      keyOnInput.pop();
+      textarea.value = keyOnInput.join('');
+    }
+
+    // add CapsLock for key down
+    if (event.code === 'CapsLock') {
+      capsLock();
+    }
+
+    // changing language on keydown (pressed is outer variable)
+    pressed.push(event.code);
+    for (let i = 0; i < pressed.length; i++) {
+      if (pressed[i] === 'ControlLeft' && pressed[i + 1] === 'ShiftLeft') {
+        changeLanguageOuter();
+      }
+    }
   });
 }
+
 
 // remove active class on key up
 
 function activeClassKeyUp() {
   document.addEventListener('keyup', () => {
+    // remove active class everywhere
     document.querySelectorAll('button').forEach((e) => {
       e.classList.remove('active');
     });
   });
 }
 
+// changing language functions: working with control + shift
+
+const pressed = [];
+let isEng = true;
+
+function changeLanguageOuter() {
+  if (!isEng) {
+    isEng = true;
+    changeToRus();
+  } else {
+    isEng = false;
+    changeToEng();
+  }
+}
+
+function changeToRus() {
+  document.querySelectorAll('.keyboard__key').forEach((el, i) => {
+    el.textContent = eventKeyRus[i];
+  });
+  pressed.length = 0;
+  console.log('change RUS');
+}
+
+function changeToEng() {
+  document.querySelectorAll('.keyboard__key').forEach((el, i) => {
+    el.textContent = eventKeyEng[i];
+  });
+  pressed.length = 0;
+  console.log('change ENG');
+}
+
+
+// window listener
 
 window.addEventListener('load', () => {
   init();
