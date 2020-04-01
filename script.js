@@ -53,7 +53,6 @@ function init() {
 
 function listenKeyPress() {
   document.addEventListener('keypress', (event) => {
-
     // add Enter for key down
     if (event.code === 'Enter') {
       textarea.value += '\n';
@@ -74,11 +73,16 @@ function listenClick() {
     el.addEventListener('click', (event) => {
       // listen for delete
       if (event.target.textContent === 'Backspace') {
+        keyOnInput.pop();
         textarea.value = textarea.value.slice(0, -1);
-      } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Tab' || event.target.textContent === 'Shift') {
+      } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Shift') {
         return false;
       } else if (event.target.textContent === 'Enter') {
         enterClick();
+      } else if (event.target.textContent === 'Tab') {
+        event.preventDefault();
+        keyOnInput.push(' ', ' ');
+        textarea.value += '  ';
       } else if (event.target.textContent === 'CapsLock') {
         capsLock();
       } else {
@@ -131,7 +135,14 @@ function activeClassKeyDown() {
 
     // remove key from keyboard on keydown
     if (event.code === 'Backspace') {
+      keyOnInput.pop();
       textarea.value = textarea.value.slice(0, -1);
+    }
+
+    if (event.code === 'Tab') {
+      event.preventDefault();
+      keyOnInput.push(' ', ' ');
+      textarea.value += '  ';
     }
 
     // add CapsLock for key down
