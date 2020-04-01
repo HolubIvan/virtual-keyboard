@@ -53,30 +53,47 @@ function init() {
 
 function listenKeyPress() {
   document.addEventListener('keypress', (event) => {
-    keyOnInput.push(event.key);
-    textarea.value += keyOnInput[keyOnInput.length - 1];
+
+    // add Enter for key down
+    if (event.code === 'Enter') {
+      textarea.value += '\n';
+    } else {
+      // add all else key
+
+      const key = document.querySelector(`.keyboard__key[data="${event.code}"]`);
+      keyOnInput.push(key.textContent);
+      textarea.value += keyOnInput[keyOnInput.length - 1];
+    }
   });
 }
 
 // listen for click on keyboard and add key to textarea
 
 function listenClick() {
-  document.addEventListener('click', (event) => {
-    // listen for delete
-    if (event.target.textContent === 'Backspace') {
-      keyOnInput.pop();
-      textarea.value = keyOnInput.join('');
-    } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Tab' || event.target.textContent === 'Shift' || event.target.textContent === 'Enter') {
-      return false;
-    } else if (event.target.textContent === 'CapsLock') {
-      capsLock();
-    } else {
-      keyOnInput.push(event.target.textContent);
-      textarea.value += keyOnInput[keyOnInput.length - 1];
-    }
+  document.querySelectorAll('.keyboard__key').forEach((el) => {
+    el.addEventListener('click', (event) => {
+      // listen for delete
+      if (event.target.textContent === 'Backspace') {
+        textarea.value = textarea.value.slice(0, -1);
+      } else if (event.target.textContent === 'Ctr' || event.target.textContent === 'Alt' || event.target.textContent === 'Meta' || event.target.textContent === 'Tab' || event.target.textContent === 'Shift') {
+        return false;
+      } else if (event.target.textContent === 'Enter') {
+        enterClick();
+      } else if (event.target.textContent === 'CapsLock') {
+        capsLock();
+      } else {
+        keyOnInput.push(event.target.textContent);
+        textarea.value += keyOnInput[keyOnInput.length - 1];
+      }
+    });
   });
 }
 
+// Enter click event
+
+function enterClick() {
+  textarea.value += '\n';
+}
 
 // click event for CapsLock
 
@@ -101,7 +118,7 @@ function capsLock() {
 }
 
 
-// add active class on key down and CapsLock
+// add active class on key down and add CapsLock event
 
 function activeClassKeyDown() {
   document.addEventListener('keydown', (event) => {
@@ -114,8 +131,7 @@ function activeClassKeyDown() {
 
     // remove key from keyboard on keydown
     if (event.code === 'Backspace') {
-      keyOnInput.pop();
-      textarea.value = keyOnInput.join('');
+      textarea.value = textarea.value.slice(0, -1);
     }
 
     // add CapsLock for key down
@@ -165,7 +181,6 @@ function changeToRus() {
     el.textContent = eventKeyRus[i];
   });
   pressed.length = 0;
-  console.log('change RUS');
 }
 
 function changeToEng() {
@@ -173,7 +188,6 @@ function changeToEng() {
     el.textContent = eventKeyEng[i];
   });
   pressed.length = 0;
-  console.log('change ENG');
 }
 
 
