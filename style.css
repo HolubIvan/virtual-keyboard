@@ -79,4 +79,11 @@
   background-color: #2c3a7d;
 }
 
+.description {
+  position: absolute;
+  top: 55rem;
+  left: 24%;
+  font-size: 1.6rem;
+}
+
 /*# sourceMappingURL=style.css.map */

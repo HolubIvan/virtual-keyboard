@@ -8,7 +8,18 @@ const eventKeyRus = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-',
 // final key array
 const keyOnInput = [];
 
+
+// create textarea
 const textarea = document.createElement('textarea');
+// create description below keyboard
+const description = document.createElement('div');
+description.classList.add('description');
+const p1 = document.createElement('p');
+p1.textContent = 'Created on MacOS';
+const p2 = document.createElement('p');
+p2.textContent = 'Language change: Сtr + Shift';
+description.append(p1, p2);
+document.body.append(description);
 
 // add keys from array to html markup
 
@@ -150,6 +161,24 @@ function activeClassKeyDown() {
       capsLock();
     }
 
+    // add key down for arrown to see in textarea
+    if (event.code === 'ArrowLeft') {
+      keyOnInput.push('◄');
+      textarea.value += '◄';
+    }
+    if (event.code === 'ArrowDown') {
+      keyOnInput.push('▼');
+      textarea.value += '▼';
+    }
+    if (event.code === 'ArrowRight') {
+      keyOnInput.push('►');
+      textarea.value += '►';
+    }
+    if (event.code === 'ArrowUp') {
+      keyOnInput.push('▲');
+      textarea.value += '▲';
+    }
+
     // changing language on keydown (pressed is outer variable)
     pressed.push(event.code);
     for (let i = 0; i < pressed.length; i++) {
@@ -172,6 +201,18 @@ function activeClassKeyUp() {
   });
 }
 
+
+// change language on load what language was before
+
+function langOnLoad() {
+  if (localStorage.getItem('isEng') === 'true') {
+    changeToEng();
+  } else if (localStorage.getItem('isEng') === 'false') {
+    changeToRus();
+  }
+}
+
+
 // changing language functions: working with control + shift
 
 const pressed = [];
@@ -180,10 +221,12 @@ let isEng = true;
 function changeLanguageOuter() {
   if (!isEng) {
     isEng = true;
-    changeToRus();
+    localStorage.setItem('isEng', isEng);
+    changeToEng();
   } else {
     isEng = false;
-    changeToEng();
+    localStorage.setItem('isEng', isEng);
+    changeToRus();
   }
 }
 
@@ -201,6 +244,10 @@ function changeToEng() {
   pressed.length = 0;
 }
 
+// function langFromStorage(){
+//   localStorage.setItem('isEng', isEng);
+// }
+
 
 // window listener
 
@@ -210,4 +257,5 @@ window.addEventListener('load', () => {
   listenClick();
   activeClassKeyDown();
   activeClassKeyUp();
+  langOnLoad();
 });
