@@ -183,6 +183,7 @@ function activeClassKeyDown() {
       keyOnInput.push('▲');
       textarea.value += '▲';
     }
+
     // during keydown shift active
     if (event.code === 'ShiftLeft') {
       document.querySelectorAll('.keyboard__key').forEach((el) => {
