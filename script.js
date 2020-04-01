@@ -1,3 +1,7 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
+
 const eventCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ControlLeft', 'AltLeft', 'MetaLeft', 'Space', 'MetaRight', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
 const eventKeyEng = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '|', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Ctr', 'Alt', 'Meta', ' ', 'Meta', 'Alt', '◄', '▼', '►'];
@@ -81,6 +85,7 @@ function listenKeyPress() {
 
 function listenClick() {
   document.querySelectorAll('.keyboard__key').forEach((el) => {
+    // eslint-disable-next-line consistent-return
     el.addEventListener('click', (event) => {
       // listen for delete
       if (event.target.textContent === 'Backspace') {
@@ -161,7 +166,7 @@ function activeClassKeyDown() {
       capsLock();
     }
 
-    // add key down for arrown to see in textarea
+    // add key down for arrow to see in textarea
     if (event.code === 'ArrowLeft') {
       keyOnInput.push('◄');
       textarea.value += '◄';
@@ -243,10 +248,6 @@ function changeToEng() {
   });
   pressed.length = 0;
 }
-
-// function langFromStorage(){
-//   localStorage.setItem('isEng', isEng);
-// }
 
 
 // window listener
