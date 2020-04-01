@@ -183,6 +183,14 @@ function activeClassKeyDown() {
       keyOnInput.push('▲');
       textarea.value += '▲';
     }
+    // during keydown shift active
+    if (event.code === 'ShiftLeft') {
+      document.querySelectorAll('.keyboard__key').forEach((el) => {
+        if (el.textContent.length === 1) {
+          el.textContent = el.textContent.toUpperCase();
+        }
+      });
+    }
 
     // changing language on keydown (pressed is outer variable)
     pressed.push(event.code);
@@ -198,11 +206,20 @@ function activeClassKeyDown() {
 // remove active class on key up
 
 function activeClassKeyUp() {
-  document.addEventListener('keyup', () => {
+  document.addEventListener('keyup', (event) => {
     // remove active class everywhere
     document.querySelectorAll('button').forEach((e) => {
       e.classList.remove('active');
     });
+
+    // keyup shift disable
+    if (event.code === 'ShiftLeft') {
+      document.querySelectorAll('.keyboard__key').forEach((el) => {
+        if (el.textContent.length === 1) {
+          el.textContent = el.textContent.toLowerCase();
+        }
+      });
+    }
   });
 }
 
